@@ -4,7 +4,8 @@ import { Card } from '@/shared/ui/Card/Card'
 import { discoveryApi } from '@shared/api'
 import styles from './EndpointResult.module.css'
 import { FiCheck, FiX, FiClock, FiDatabase, FiExternalLink, FiCopy } from 'react-icons/fi'
-import ReactJson from 'react-json-view'
+import ReactJsonPretty from 'react-json-pretty'
+import 'react-json-pretty/themes/monikai.css'
 
 interface EndpointResultProps {
   endpoint: {
@@ -221,11 +222,9 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
                 <div className={styles.dataPreview}>
                   <h4 className={styles.previewTitle}>Data Preview</h4>
                   <div className={styles.previewContainer}>
-                    <ReactJson
-                      src={testResult.data}
-                      theme="solarized"
-                      collapsed={2}
-                      displayDataTypes={false}
+                    <ReactJsonPretty
+                      data={testResult.data}
+                      className={styles.json}
                       style={{
                         padding: '1rem',
                         borderRadius: '0.5rem',
