@@ -2,7 +2,7 @@ import React from 'react'
 import { Card } from '@/shared/ui/Card/Card'
 import { useAuth } from '@features/auth/context/AuthContext'
 import styles from './Dashboard.module.css'
-import { FiActivity, FiDatabase, FiGlobe, FiUsers, FiBarChart } from 'react-icons/fi'
+import { FiActivity, FiDatabase, FiGlobe, FiBarChart } from 'react-icons/fi'
 
 export const Dashboard = () => {
   const { user } = useAuth()

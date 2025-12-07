@@ -1,9 +1,8 @@
-import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '@features/auth/hooks/useAuth'
 import { Button } from '@/shared/ui/Button/Button'
 import styles from './Layout.module.css'
-import { FiLogOut, FiUser, FiSettings, FiBell } from 'react-icons/fi'
+import { FiLogOut, FiUser, FiBell } from 'react-icons/fi'
 
 export const Header = () => {
   const location = useLocation()

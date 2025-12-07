@@ -21,7 +21,9 @@ export const PresetManager = () => {
   const [editingPreset, setEditingPreset] = useState<Preset | null>(null)
 
   const loadPresets = async () => {
-    if (!user) return
+    if (!user) {
+      return
+    }
 
     try {
       setIsLoading(true)
@@ -58,7 +60,9 @@ export const PresetManager = () => {
   }
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this preset?')) return
+    if (!window.confirm('Are you sure you want to delete this preset?')) {
+      return
+    }
 
     try {
       await presetsApi.delete(id)

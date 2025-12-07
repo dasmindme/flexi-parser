@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { ApiResponse, Preset } from '@shared/types'
+import { Preset } from '@shared/types'
 import { presetsApi, proxyApi, discoveryApi } from '@shared/api'
 import { exportToExcel, exportToGeoJSON } from '@shared/lib/export'
 
@@ -35,7 +35,7 @@ export const useFlexiParser = (): UseFlexiParserReturn => {
   const [discoveredEndpoints, setDiscoveredEndpoints] = useState<any[]>([])
 
   const sendRequest = useCallback(
-    async (url: string, path: string) => {
+    async (url: string) => {
       if (!url.trim() && !response.trim()) {
         alert('Please enter API URL or paste JSON')
         return
@@ -126,7 +126,9 @@ export const useFlexiParser = (): UseFlexiParserReturn => {
   }, [])
 
   const extractData = (data: any, path: string) => {
-    if (!path) return data
+    if (!path) {
+      return data
+    }
 
     const keys = path.split('.')
     let result = data

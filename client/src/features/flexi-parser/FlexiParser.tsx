@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Card } from '@shared/ui/Card'
-import { Button } from '@shared/ui/Button'
 import styles from './FlexiParser.module.css'
 import { useFlexiParser } from './hooks/useFlexiParser'
 import { ApiRequest } from './components/ApiRequest/ApiRequest'
@@ -10,8 +8,6 @@ import { InstructionsModal } from './components/InstructionsModal/InstructionsMo
 
 export const FlexiParser: React.FC = () => {
   const {
-    apiUrl,
-    dataPath,
     response,
     isLoading,
     isJsonValid,

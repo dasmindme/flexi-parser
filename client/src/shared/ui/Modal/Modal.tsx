@@ -42,7 +42,9 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }, [isOpen, onClose])
 
-  if (!isOpen) return null
+  if (!isOpen) {
+    return null
+  }
 
   return ReactDOM.createPortal(
     <div className={styles.overlay} onClick={onClose}>

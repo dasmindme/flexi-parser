@@ -3,7 +3,6 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { Button } from '@/shared/ui/Button/Button'
 import styles from './InstructionsModal.module.css'
 import {
-  FiGlobe,
   FiCode,
   FiDownload,
   FiDatabase,
@@ -12,7 +11,6 @@ import {
   FiPlay,
   FiCopy,
   FiCheckSquare,
-  FiMap,
 } from 'react-icons/fi'
 
 interface InstructionsModalProps {

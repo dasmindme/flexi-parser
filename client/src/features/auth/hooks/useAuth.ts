@@ -74,8 +74,19 @@ export const useAuth = () => {
   }, [navigate])
 
   useEffect(() => {
-    checkAuth()
-  }, [checkAuth])
+    let isMounted = true
+
+    ;(async () => {
+      const { data } = await authApi.check()
+      if (isMounted) {
+        setState({ user: data.user ?? null, isLoading: false })
+      }
+    })()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   return {
     user: state.user,

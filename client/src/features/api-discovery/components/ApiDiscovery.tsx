@@ -72,8 +72,12 @@ export const ApiDiscovery: React.FC<ApiDiscoveryProps> = ({ onSelectEndpoint }) 
   }
 
   const getScoreColor = (score: number) => {
-    if (score >= 8) return '#10b981' // green
-    if (score >= 5) return '#f59e0b' // yellow
+    if (score >= 8) {
+      return '#10b981'
+    } // green
+    if (score >= 5) {
+      return '#f59e0b'
+    } // yellow
     return '#ef4444' // red
   }
 
@@ -162,7 +166,7 @@ export const ApiDiscovery: React.FC<ApiDiscoveryProps> = ({ onSelectEndpoint }) 
           <div className={styles.emptyState}>
             <FiAlertCircle className={styles.emptyIcon} />
             <h3>No endpoints discovered yet</h3>
-            <p>Enter a website URL and click "Discover APIs" to find API endpoints</p>
+            <p>Enter a website URL and click &quot;Discover APIs&quot; to find API endpoints</p>
           </div>
         )}
       </Card>

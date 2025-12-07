@@ -47,7 +47,9 @@ export const PresetForm: React.FC<PresetFormProps> = ({ preset, onSubmit, onCanc
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!validate()) return
+    if (!validate()) {
+      return
+    }
 
     const category = customCategory || formData.category
 

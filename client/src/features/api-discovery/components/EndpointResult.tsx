@@ -61,16 +61,28 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
   }
 
   const getScoreColor = (score: number) => {
-    if (score >= 8) return '#10b981' // green
-    if (score >= 5) return '#f59e0b' // yellow
+    if (score >= 8) {
+      return '#10b981'
+    } // green
+    if (score >= 5) {
+      return '#f59e0b'
+    } // yellow
     return '#ef4444' // red
   }
 
   const getStructureIcon = (structure: string) => {
-    if (structure.includes('JSON')) return '📄'
-    if (structure.includes('XML')) return '📋'
-    if (structure.includes('HTML')) return '🌐'
-    if (structure.includes('Text')) return '📝'
+    if (structure.includes('JSON')) {
+      return '📄'
+    }
+    if (structure.includes('XML')) {
+      return '📋'
+    }
+    if (structure.includes('HTML')) {
+      return '🌐'
+    }
+    if (structure.includes('Text')) {
+      return '📝'
+    }
     return '❓'
   }
 
@@ -251,7 +263,7 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
           </div>
         ) : (
           <div className={styles.noResults}>
-            <p>No test results available. Click "Test" to test the endpoint.</p>
+            <p>No test results available. Click &quot;Test&quot; to test the endpoint.</p>
           </div>
         )}
       </Card>

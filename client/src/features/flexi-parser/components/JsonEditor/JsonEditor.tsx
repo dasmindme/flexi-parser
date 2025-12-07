@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { Button } from '@/shared/ui/Button/Button'
 import styles from './JsonEditor.module.css'
-import { FiCode, FiSave } from 'react-icons/fi'
+import { FiSave } from 'react-icons/fi'
 
 interface JsonEditorProps {
   isOpen: boolean

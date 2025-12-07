@@ -79,7 +79,7 @@ export const Login = () => {
 
         <div className={styles.footer}>
           <p className={styles.text}>
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link to="/register" className={styles.link}>
               Sign up
             </Link>

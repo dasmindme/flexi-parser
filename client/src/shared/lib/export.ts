@@ -8,7 +8,7 @@ export const exportToExcel = (data: any[], filename = 'api_response.xlsx') => {
     XLSX.writeFile(wb, filename)
     return { success: true, message: 'Excel file saved successfully' }
   } catch (error) {
-    return { success: false, error: error.message }
+    return { success: false, error: (error as Error).message }
   }
 }
 
@@ -76,7 +76,7 @@ export const exportToGeoJSON = (data: any[], type: 'Point' | 'Line' = 'Point') =
 
     return { success: true, features: features.length }
   } catch (error) {
-    return { success: false, error: error.message }
+    return { success: false, error: (error as Error).message }
   }
 }
 
@@ -84,7 +84,9 @@ export const flattenObject = (obj: any, prefix = ''): Record<string, any> => {
   const result: Record<string, any> = {}
 
   for (const key in obj) {
-    if (!obj.hasOwnProperty(key)) continue
+    if (Object.prototype.hasOwnProperty.call(obj, 'key')) {
+      continue
+    }
 
     const value = obj[key]
     const newKey = prefix ? `${prefix}_${key}` : key
