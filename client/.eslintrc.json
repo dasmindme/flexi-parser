@@ -65,5 +65,13 @@
     "build/",
     "*.config.js",
     "*.config.ts"
-  ]
+  ],
+  "overrides": [
+  {
+    "files": ["*.stories.tsx"],
+    "rules": {
+      "storybook/no-renderer-packages": "off"
+    }
+  }
+]
 }
