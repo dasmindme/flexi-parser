@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react'
 import { useAuth } from '@features/auth/hooks/useAuth'
 import { presetsApi } from '@shared/api'
 import { Card } from '@/shared/ui/Card/Card'

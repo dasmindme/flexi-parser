@@ -1,4 +1,3 @@
-import React from 'react'
 import { Card } from '@/shared/ui/Card/Card'
 import { useAuth } from '@features/auth/context/AuthContext'
 import styles from './Dashboard.module.css'

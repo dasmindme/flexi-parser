@@ -1,4 +1,3 @@
-import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { FlexiParser } from '@/features/flexi-parser/FlexiParser'
 import { Login } from '@features/auth/components/Login'
