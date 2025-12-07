@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es6"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,  // Добавьте эту строку
+    "skipLibCheck": true,     // Добавьте эту строку
+    "forceConsistentCasingInFileNames": true,  // Добавьте эту строку
+    "resolveJsonModule": true,  // Добавьте эту строку
+    "typeRoots": ["./node_modules/@types", "./src/types"]
+  },
+  "include": ["src", "src/types"],
+  "exclude": ["node_modules"]
+}
