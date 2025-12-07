@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.label {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  transition: all 0.2s ease-in-out;
+}
+
+.input.hasLeftIcon {
+  padding-left: 2.5rem;
+}
+
+.input.hasRightIcon {
+  padding-right: 2.5rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(46, 182, 125, 0.1);
+}
+
+.input:hover:not(:focus) {
+  border-color: var(--border-hover);
+}
+
+.input.error {
+  border-color: var(--danger-color);
+}
+
+.input.error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.leftIcon,
+.rightIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.leftIcon {
+  left: 0.875rem;
+}
+
+.rightIcon {
+  right: 0.875rem;
+}
+
+.helperText {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.helperText.error {
+  color: var(--danger-color);
+}

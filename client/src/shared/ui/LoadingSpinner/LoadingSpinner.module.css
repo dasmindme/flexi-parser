@@ -1,0 +1,38 @@
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinnerInner {
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+}
+
+.spinnerInner:not(:first-child) {
+  margin-left: 0.5rem;
+}
+
+/* Sizes */
+.sm .spinnerInner {
+  width: 16px;
+  height: 16px;
+}
+
+.md .spinnerInner {
+  width: 24px;
+  height: 24px;
+}
+
+.lg .spinnerInner {
+  width: 32px;
+  height: 32px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
