@@ -29,10 +29,29 @@ export const proxyRequest = async (req: Request, res: Response) => {
     }
 
     const blockedHosts = [
-      'localhost', '127.0.0.1', '0.0.0.0', '::1', '192.168.', '10.', '172.16.',
-      '172.17.', '172.18.', '172.19.', '172.20.', '172.21.', '172.22.', '172.23.',
-      '172.24.', '172.25.', '172.26.', '172.27.', '172.28.', '172.29.', '172.30.',
-      '172.31.', '169.254.'
+      'localhost',
+      '127.0.0.1',
+      '0.0.0.0',
+      '::1',
+      '192.168.',
+      '10.',
+      '172.16.',
+      '172.17.',
+      '172.18.',
+      '172.19.',
+      '172.20.',
+      '172.21.',
+      '172.22.',
+      '172.23.',
+      '172.24.',
+      '172.25.',
+      '172.26.',
+      '172.27.',
+      '172.28.',
+      '172.29.',
+      '172.30.',
+      '172.31.',
+      '169.254.',
     ]
 
     const hostname = parsedUrl.hostname.toLowerCase()
@@ -48,20 +67,20 @@ export const proxyRequest = async (req: Request, res: Response) => {
         host: parsedUrl.host,
         origin: parsedUrl.origin,
         referer: parsedUrl.origin,
-        'user-agent': 'FlexiParser/1.0'
+        'user-agent': 'FlexiParser/1.0',
       },
       params: req.query,
       data: req.body,
       responseType: 'stream',
       timeout: 30000,
       maxRedirects: 5,
-      validateStatus: () => true
+      validateStatus: () => true,
     })
 
     res.status(response.status)
-    
+
     const headersToExclude = ['connection', 'keep-alive', 'transfer-encoding', 'content-encoding']
-    
+
     Object.entries(response.headers).forEach(([key, value]) => {
       if (!headersToExclude.includes(key.toLowerCase())) {
         res.setHeader(key, value as string)
@@ -71,18 +90,18 @@ export const proxyRequest = async (req: Request, res: Response) => {
     response.data.pipe(res)
   } catch (error: any) {
     console.error('Proxy request error:', error)
-    
+
     if (error.code === 'ECONNREFUSED') {
       return res.status(502).json({ error: 'Connection refused' })
     }
-    
+
     if (error.code === 'ETIMEDOUT') {
       return res.status(504).json({ error: 'Request timeout' })
     }
-    
-    res.status(500).json({ 
-      error: 'Proxy request failed', 
-      message: error.message 
+
+    res.status(500).json({
+      error: 'Proxy request failed',
+      message: error.message,
     })
   }
 }
@@ -108,19 +127,19 @@ export const discoverApi = async (req: Request, res: Response) => {
     const response = await axios.get(parsedUrl.toString(), {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       },
       timeout: 10000,
-      validateStatus: () => true // Принимаем любые статусы
+      validateStatus: () => true, // Принимаем любые статусы
     })
 
     // Проверка, что получили HTML
     if (!response.data || typeof response.data !== 'string') {
-      return res.json({ 
-        success: true, 
+      return res.json({
+        success: true,
         endpoints: [],
         count: 0,
-        message: 'No HTML content found'
+        message: 'No HTML content found',
       })
     }
 
@@ -129,11 +148,11 @@ export const discoverApi = async (req: Request, res: Response) => {
     try {
       $ = cheerio.load(response.data)
     } catch (error) {
-      return res.json({ 
-        success: true, 
+      return res.json({
+        success: true,
         endpoints: [],
         count: 0,
-        message: 'Failed to parse HTML'
+        message: 'Failed to parse HTML',
       })
     }
     const endpoints: DiscoveredEndpoint[] = []
@@ -143,7 +162,7 @@ export const discoverApi = async (req: Request, res: Response) => {
         /(?:fetch|axios|ajax|XMLHttpRequest)\s*\(\s*['"]([^'"]*\/api\/[^'"]*)['"]/gi,
         /(?:fetch|axios|ajax|XMLHttpRequest)\s*\(\s*['"]([^'"]*\.json[^'"]*)['"]/gi,
         /(?:query|mutation)\s*[^{]+\{\s*[^}]*\s*\}\s*['"]([^'"]*)['"]/gi,
-        /(?:new\s+WebSocket|ws:\/\/|wss:\/\/)\s*\(\s*['"]([^'"]*)['"]/gi
+        /(?:new\s+WebSocket|ws:\/\/|wss:\/\/)\s*\(\s*['"]([^'"]*)['"]/gi,
       ]
 
       patterns.forEach(pattern => {
@@ -153,11 +172,11 @@ export const discoverApi = async (req: Request, res: Response) => {
           if (!endpointUrl.startsWith('http')) {
             endpointUrl = new URL(endpointUrl, parsedUrl).href
           }
-          
+
           endpoints.push({
             url: endpointUrl,
             type: pattern.toString().includes('json') ? 'JSON API' : 'API Endpoint',
-            score: 7
+            score: 7,
           })
         }
       })
@@ -169,7 +188,7 @@ export const discoverApi = async (req: Request, res: Response) => {
         endpoints.push({
           url: new URL(src, parsedUrl).href,
           type: 'JS API',
-          score: 6
+          score: 6,
         })
       }
     })
@@ -184,44 +203,44 @@ export const discoverApi = async (req: Request, res: Response) => {
         endpoints.push({
           url: new URL(href, parsedUrl).href,
           type: 'API Link',
-          score: 5
+          score: 5,
         })
       }
     })
 
-    const uniqueEndpoints = endpoints.filter((endpoint, index, self) =>
-      index === self.findIndex(e => e.url === endpoint.url)
+    const uniqueEndpoints = endpoints.filter(
+      (endpoint, index, self) => index === self.findIndex(e => e.url === endpoint.url)
     )
 
     // Сортировка по score
     uniqueEndpoints.sort((a, b) => b.score - a.score)
 
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       endpoints: uniqueEndpoints,
-      count: uniqueEndpoints.length
+      count: uniqueEndpoints.length,
     })
   } catch (error: any) {
     console.error('API discovery error:', error)
-    
+
     // Более детальные ошибки
     if (error.code === 'ENOTFOUND') {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'Domain not found' 
+      return res.status(400).json({
+        success: false,
+        error: 'Domain not found',
       })
     }
-    
+
     if (error.code === 'ECONNREFUSED') {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'Connection refused' 
+      return res.status(400).json({
+        success: false,
+        error: 'Connection refused',
       })
     }
-    
-    res.status(500).json({ 
-      success: false, 
-      error: error.message || 'Discovery failed'
+
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Discovery failed',
     })
   }
 }
@@ -244,12 +263,12 @@ export const testEndpoint = async (req: Request, res: Response) => {
 
     const response = await axios.get(url, {
       timeout: 5000,
-      validateStatus: () => true
+      validateStatus: () => true,
     })
 
     const contentType = response.headers['content-type'] || ''
     const isJson = contentType.includes('application/json')
-    
+
     let structure = 'unknown'
     let dataPreview = null
 
@@ -282,11 +301,11 @@ export const testEndpoint = async (req: Request, res: Response) => {
       size: response.data ? Buffer.byteLength(JSON.stringify(response.data)) : 0,
       structure,
       data: dataPreview || response.data,
-      headers: response.headers
+      headers: response.headers,
     })
   } catch (error: any) {
     console.error('Test endpoint error:', error)
-    
+
     // Обработка ошибок сети
     if (error.code === 'ENOTFOUND') {
       return res.json({
@@ -295,10 +314,10 @@ export const testEndpoint = async (req: Request, res: Response) => {
         contentType: '',
         size: 0,
         structure: 'error',
-        error: 'Domain not found'
+        error: 'Domain not found',
       })
     }
-    
+
     if (error.code === 'ECONNREFUSED') {
       return res.json({
         success: false,
@@ -306,17 +325,17 @@ export const testEndpoint = async (req: Request, res: Response) => {
         contentType: '',
         size: 0,
         structure: 'error',
-        error: 'Connection refused'
+        error: 'Connection refused',
       })
     }
-    
+
     res.json({
       success: false,
       status: 0,
       contentType: '',
       size: 0,
       structure: 'error',
-      error: error.message || 'Test failed'
+      error: error.message || 'Test failed',
     })
   }
 }
@@ -335,13 +354,13 @@ export const validateJson = async (req: Request, res: Response) => {
       res.json({
         valid: true,
         type: Array.isArray(parsed) ? 'array' : 'object',
-        length: Array.isArray(parsed) ? parsed.length : Object.keys(parsed).length
+        length: Array.isArray(parsed) ? parsed.length : Object.keys(parsed).length,
       })
     } catch (error: any) {
       res.json({
         valid: false,
         error: error.message,
-        position: error.position
+        position: error.position,
       })
     }
   } catch (error: any) {
@@ -365,7 +384,10 @@ export const exportToExcel = async (req: Request, res: Response) => {
     const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' })
 
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`)
-    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
     res.send(buffer)
   } catch (error: any) {
     console.error('Export to Excel error:', error)
@@ -382,9 +404,9 @@ export const exportToGeoJSON = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Valid data array is required' })
     }
 
-    const features = data.map((item, index) => {
+    const features = data.map(item => {
       let coordinates: [number, number] | [number, number][] = [0, 0]
-      
+
       if (type === 'Point') {
         if (item.lat !== undefined && item.lng !== undefined) {
           coordinates = [item.lng, item.lat]
@@ -395,7 +417,10 @@ export const exportToGeoJSON = async (req: Request, res: Response) => {
         }
       } else if (type === 'LineString') {
         if (item.ordinates && Array.isArray(item.ordinates)) {
-          coordinates = item.ordinates.map((coord: any) => [coord.lng || coord.longitude, coord.lat || coord.latitude])
+          coordinates = item.ordinates.map((coord: any) => [
+            coord.lng || coord.longitude,
+            coord.lat || coord.latitude,
+          ])
         }
       }
 
@@ -411,17 +436,17 @@ export const exportToGeoJSON = async (req: Request, res: Response) => {
         type: 'Feature',
         geometry: {
           type: type === 'Point' ? 'Point' : 'LineString',
-          coordinates: type === 'Point' ? coordinates : [coordinates]
+          coordinates: type === 'Point' ? coordinates : [coordinates],
         },
-        properties
+        properties,
       }
     })
 
     const geojson = {
       type: 'FeatureCollection',
-      features: features.filter((f: any) => 
-        f.geometry.coordinates[0] !== 0 || f.geometry.coordinates[1] !== 0
-      )
+      features: features.filter(
+        (f: any) => f.geometry.coordinates[0] !== 0 || f.geometry.coordinates[1] !== 0
+      ),
     }
 
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`)
@@ -440,5 +465,5 @@ export default {
   testEndpoint,
   validateJson,
   exportToExcel,
-  exportToGeoJSON
+  exportToGeoJSON,
 }

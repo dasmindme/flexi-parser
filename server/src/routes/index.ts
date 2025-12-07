@@ -15,7 +15,7 @@ router.use('/api/*', (req, res) => {
   res.status(404).json({
     error: 'API endpoint not found',
     path: req.originalUrl,
-    method: req.method
+    method: req.method,
   })
 })
 

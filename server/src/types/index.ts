@@ -1,3 +1,5 @@
+// Замените текущий файл на этот:
+
 export interface User {
   _id: string
   username: string
@@ -29,7 +31,7 @@ export interface TestResult {
   contentType: string
   size: number
   structure: string
-  data?: any
+  data?: unknown // Изменили any на unknown
 }
 
 export interface RequestUser {
@@ -37,10 +39,5 @@ export interface RequestUser {
   username: string
 }
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: RequestUser
-    }
-  }
-}
+// Вместо namespace используем declaration merging в отдельном файле
+// Удалите namespace и создайте файл src/types/express.d.ts:

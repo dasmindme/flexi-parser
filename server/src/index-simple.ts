@@ -1,55 +1,57 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser';
+import express from 'express'
+import cors from 'cors'
+import dotenv from 'dotenv'
+import cookieParser from 'cookie-parser'
 
-dotenv.config();
+dotenv.config()
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+const app = express()
+const PORT = process.env.PORT || 5000
 
 // Middleware
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173'],
-  credentials: true
-}));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    credentials: true,
+  })
+)
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 // Простые маршруты
 app.get('/', (req, res) => {
-  res.json({ message: 'Flexi Parser API' });
-});
+  res.json({ message: 'Flexi Parser API' })
+})
 
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
-});
+  res.json({ status: 'OK', timestamp: new Date().toISOString() })
+})
 
 // Упрощенные маршруты аутентификации
 app.get('/api/auth/check', (req, res) => {
   res.json({
     authenticated: false,
     user: null,
-    message: 'Auth system in development'
-  });
-});
+    message: 'Auth system in development',
+  })
+})
 
 app.post('/api/auth/register', (req, res) => {
-  console.log('Register attempt:', req.body);
+  console.log('Register attempt:', req.body)
   res.json({
     success: true,
     message: 'Registration endpoint (development mode)',
     user: {
       id: 1,
       email: req.body.email || 'test@example.com',
-      name: req.body.name || 'Test User'
-    }
-  });
-});
+      name: req.body.name || 'Test User',
+    },
+  })
+})
 
 app.post('/api/auth/login', (req, res) => {
-  console.log('Login attempt:', req.body);
+  console.log('Login attempt:', req.body)
   res.json({
     success: true,
     message: 'Login successful (development mode)',
@@ -57,41 +59,41 @@ app.post('/api/auth/login', (req, res) => {
     user: {
       id: 1,
       email: req.body.email || 'test@example.com',
-      name: 'Development User'
-    }
-  });
-});
+      name: 'Development User',
+    },
+  })
+})
 
 // Маршруты для API Discovery (упрощенные)
 app.post('/api/discover', (req, res) => {
-  const { url } = req.body;
-  console.log('Discovery request for:', url);
-  
+  const { url } = req.body
+  console.log('Discovery request for:', url)
+
   const mockEndpoints = [
     {
       url: 'https://jsonplaceholder.typicode.com/posts',
       type: 'JSON API',
       score: 9,
-      description: 'Test posts endpoint'
+      description: 'Test posts endpoint',
     },
     {
       url: 'https://jsonplaceholder.typicode.com/users',
       type: 'JSON API',
       score: 8,
-      description: 'Test users endpoint'
-    }
-  ];
-  
+      description: 'Test users endpoint',
+    },
+  ]
+
   res.json({
     success: true,
-    endpoints: mockEndpoints
-  });
-});
+    endpoints: mockEndpoints,
+  })
+})
 
 app.post('/api/discover/test', (req, res) => {
-  const { url } = req.body;
-  console.log('Testing endpoint:', url);
-  
+  const { url } = req.body
+  console.log('Testing endpoint:', url)
+
   res.json({
     success: true,
     status: 200,
@@ -100,31 +102,31 @@ app.post('/api/discover/test', (req, res) => {
     structure: 'JSON Array',
     data: [{ id: 1, title: 'Test data' }],
     headers: {
-      'content-type': 'application/json'
-    }
-  });
-});
+      'content-type': 'application/json',
+    },
+  })
+})
 
 // Маршруты для парсера
 app.post('/api/parser/parse', (req, res) => {
-  const { url, dataPath } = req.body;
-  console.log('Parser request:', { url, dataPath });
-  
+  const { url, dataPath } = req.body
+  console.log('Parser request:', { url, dataPath })
+
   res.json({
     success: true,
     message: 'Parser endpoint (development mode)',
     data: [
       { id: 1, name: 'Item 1', value: 100 },
       { id: 2, name: 'Item 2', value: 200 },
-      { id: 3, name: 'Item 3', value: 300 }
+      { id: 3, name: 'Item 3', value: 300 },
     ],
     metadata: {
       count: 3,
       source: url,
-      timestamp: new Date().toISOString()
-    }
-  });
-});
+      timestamp: new Date().toISOString(),
+    },
+  })
+})
 
 // Запуск сервера
 app.listen(PORT, () => {
@@ -138,5 +140,5 @@ app.listen(PORT, () => {
    POST /api/discover
    POST /api/discover/test
    POST /api/parser/parse
-  `);
-});
+  `)
+})

@@ -7,7 +7,7 @@ import {
   updatePreset,
   deletePreset,
   getPresetsByCategory,
-  searchPresets
+  searchPresets,
 } from '../controllers/presetController'
 import { authenticate } from '../middleware/auth'
 
@@ -17,21 +17,28 @@ const router = express.Router()
 const presetValidation = [
   body('name')
     .trim()
-    .notEmpty().withMessage('Preset name is required')
-    .isLength({ min: 2 }).withMessage('Preset name must be at least 2 characters')
-    .isLength({ max: 100 }).withMessage('Preset name cannot exceed 100 characters'),
+    .notEmpty()
+    .withMessage('Preset name is required')
+    .isLength({ min: 2 })
+    .withMessage('Preset name must be at least 2 characters')
+    .isLength({ max: 100 })
+    .withMessage('Preset name cannot exceed 100 characters'),
   body('url')
     .trim()
-    .notEmpty().withMessage('URL is required')
-    .isURL().withMessage('Please provide a valid URL'),
+    .notEmpty()
+    .withMessage('URL is required')
+    .isURL()
+    .withMessage('Please provide a valid URL'),
   body('description')
     .optional()
     .trim()
-    .isLength({ max: 500 }).withMessage('Description cannot exceed 500 characters'),
+    .isLength({ max: 500 })
+    .withMessage('Description cannot exceed 500 characters'),
   body('category')
     .optional()
     .trim()
-    .isLength({ max: 50 }).withMessage('Category cannot exceed 50 characters')
+    .isLength({ max: 50 })
+    .withMessage('Category cannot exceed 50 characters'),
 ]
 
 // Все маршруты требуют аутентификации
