@@ -18,7 +18,7 @@ export const ApiRequest: React.FC<ApiRequestProps> = ({
   onSendRequest,
   isLoading,
   onOpenJsonEditor,
-  onOpenInstructions
+  onOpenInstructions,
 }) => {
   const [apiUrl, setApiUrl] = useState('')
   const [dataPath, setDataPath] = useState('')
@@ -38,29 +38,29 @@ export const ApiRequest: React.FC<ApiRequestProps> = ({
       <form onSubmit={handleSubmit}>
         <div className={styles.section}>
           <h3 className={styles.title}>API Configuration</h3>
-          
+
           <div className={styles.formGroup}>
             <Input
               label="API URL"
               type="url"
               value={apiUrl}
-              onChange={(e) => setApiUrl(e.target.value)}
+              onChange={e => setApiUrl(e.target.value)}
               placeholder="https://api.example.com/data"
               fullWidth
             />
           </div>
-          
+
           <div className={styles.formGroup}>
             <Input
               label="Data Path (optional)"
               value={dataPath}
-              onChange={(e) => setDataPath(e.target.value)}
+              onChange={e => setDataPath(e.target.value)}
               placeholder="data.items or leave empty for root"
               helperText="Leave empty if data is at root level"
               fullWidth
             />
           </div>
-          
+
           <div className={styles.actions}>
             <Button
               type="submit"
@@ -71,7 +71,7 @@ export const ApiRequest: React.FC<ApiRequestProps> = ({
             >
               Send Request
             </Button>
-            
+
             <Button
               type="button"
               variant="secondary"
@@ -80,7 +80,7 @@ export const ApiRequest: React.FC<ApiRequestProps> = ({
             >
               Paste JSON
             </Button>
-            
+
             <Button
               type="button"
               variant="outline"
@@ -91,11 +91,11 @@ export const ApiRequest: React.FC<ApiRequestProps> = ({
             </Button>
           </div>
         </div>
-        
+
         <div className={styles.section}>
           <PresetSelector onSelect={handlePresetSelect} />
         </div>
-        
+
         <div className={styles.section}>
           <ApiDiscovery onSelectEndpoint={setApiUrl} />
         </div>

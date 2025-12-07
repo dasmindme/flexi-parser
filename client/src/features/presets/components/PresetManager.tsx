@@ -22,7 +22,7 @@ export const PresetManager = () => {
 
   const loadPresets = async () => {
     if (!user) return
-    
+
     try {
       setIsLoading(true)
       const { data } = await presetsApi.getAll()
@@ -34,7 +34,9 @@ export const PresetManager = () => {
     }
   }
 
-  const handleCreate = async (presetData: Omit<Preset, '_id' | 'user' | 'createdAt' | 'updatedAt'>) => {
+  const handleCreate = async (
+    presetData: Omit<Preset, '_id' | 'user' | 'createdAt' | 'updatedAt'>
+  ) => {
     try {
       await presetsApi.create(presetData)
       await loadPresets()
@@ -57,7 +59,7 @@ export const PresetManager = () => {
 
   const handleDelete = async (id: string) => {
     if (!window.confirm('Are you sure you want to delete this preset?')) return
-    
+
     try {
       await presetsApi.delete(id)
       await loadPresets()
@@ -73,12 +75,13 @@ export const PresetManager = () => {
 
   // Фильтрация пресетов
   const filteredPresets = presets.filter(preset => {
-    const matchesSearch = preset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch =
+      preset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       preset.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       preset.url.toLowerCase().includes(searchTerm.toLowerCase())
-    
+
     const matchesCategory = !selectedCategory || preset.category === selectedCategory
-    
+
     return matchesSearch && matchesCategory
   })
 
@@ -102,7 +105,7 @@ export const PresetManager = () => {
             type="text"
             placeholder="Search presets..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={e => setSearchTerm(e.target.value)}
             className={styles.searchInput}
           />
           <FiSearch className={styles.searchIcon} />
@@ -111,7 +114,7 @@ export const PresetManager = () => {
         <div className={styles.filterGroup}>
           <select
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={e => setSelectedCategory(e.target.value)}
             className={styles.categorySelect}
           >
             <option value="">All Categories</option>
@@ -155,9 +158,7 @@ export const PresetManager = () => {
       </Card>
 
       {isLoading ? (
-        <div className={styles.loading}>
-          Loading presets...
-        </div>
+        <div className={styles.loading}>Loading presets...</div>
       ) : (
         <PresetList
           presets={filteredPresets}
@@ -178,10 +179,7 @@ export const PresetManager = () => {
       >
         <PresetForm
           preset={editingPreset}
-          onSubmit={editingPreset ? 
-            (data) => handleUpdate(editingPreset._id, data) : 
-            handleCreate
-          }
+          onSubmit={editingPreset ? data => handleUpdate(editingPreset._id, data) : handleCreate}
           onCancel={() => {
             setIsFormOpen(false)
             setEditingPreset(null)

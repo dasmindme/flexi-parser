@@ -13,7 +13,7 @@ export const Header = () => {
     { path: '/parser', label: 'Parser' },
     { path: '/presets', label: 'Presets' },
     { path: '/discovery', label: 'Discovery' },
-    { path: '/dashboard', label: 'Dashboard' }
+    { path: '/dashboard', label: 'Dashboard' },
   ]
 
   return (
@@ -24,7 +24,7 @@ export const Header = () => {
             <span className={styles.logoIcon}>⚡</span>
             <span className={styles.logoText}>FlexiParser</span>
           </Link>
-          
+
           <nav className={styles.nav}>
             {navItems.map(item => (
               <Link
@@ -44,18 +44,13 @@ export const Header = () => {
           <Button variant="outline" size="sm" leftIcon={<FiBell />}>
             Notifications
           </Button>
-          
+
           <div className={styles.userMenu}>
             <span className={styles.userName}>
               <FiUser /> {user?.username}
             </span>
-            
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={logout}
-              leftIcon={<FiLogOut />}
-            >
+
+            <Button variant="outline" size="sm" onClick={logout} leftIcon={<FiLogOut />}>
               Logout
             </Button>
           </div>

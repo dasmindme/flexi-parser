@@ -86,9 +86,7 @@ export const ApiDiscovery: React.FC<ApiDiscoveryProps> = ({ onSelectEndpoint }) 
           </div>
           <div>
             <h2 className={styles.title}>API Discovery</h2>
-            <p className={styles.subtitle}>
-              Automatically discover API endpoints on websites
-            </p>
+            <p className={styles.subtitle}>Automatically discover API endpoints on websites</p>
           </div>
         </div>
 
@@ -97,13 +95,13 @@ export const ApiDiscovery: React.FC<ApiDiscoveryProps> = ({ onSelectEndpoint }) 
             label="Website URL"
             type="url"
             value={siteUrl}
-            onChange={(e) => setSiteUrl(e.target.value)}
+            onChange={e => setSiteUrl(e.target.value)}
             placeholder="https://example.com"
             fullWidth
             leftIcon={<FiGlobe />}
             error={error}
           />
-          
+
           <Button
             variant="primary"
             onClick={discover}
@@ -122,26 +120,22 @@ export const ApiDiscovery: React.FC<ApiDiscoveryProps> = ({ onSelectEndpoint }) 
                 <FiList /> Found {endpoints.length} endpoints
               </h3>
             </div>
-            
+
             <div className={styles.endpointsList}>
               {endpoints.map((endpoint, index) => (
                 <Card key={index} className={styles.endpointCard}>
                   <div className={styles.endpointHeader}>
-                    <div className={styles.endpointType}>
-                      {endpoint.type}
-                    </div>
-                    <div 
+                    <div className={styles.endpointType}>{endpoint.type}</div>
+                    <div
                       className={styles.scoreBadge}
                       style={{ backgroundColor: getScoreColor(endpoint.score) }}
                     >
                       Score: {endpoint.score}
                     </div>
                   </div>
-                  
-                  <div className={styles.endpointUrl}>
-                    {endpoint.url}
-                  </div>
-                  
+
+                  <div className={styles.endpointUrl}>{endpoint.url}</div>
+
                   <div className={styles.endpointActions}>
                     <Button
                       variant="outline"

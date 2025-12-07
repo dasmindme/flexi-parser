@@ -20,7 +20,7 @@ export const FlexiParser: React.FC = () => {
     formatJson,
     saveToExcel,
     saveToGeoJSON,
-    setResponse
+    setResponse,
   } = useFlexiParser()
 
   const [isJsonEditorOpen, setIsJsonEditorOpen] = useState(false)
@@ -69,10 +69,7 @@ export const FlexiParser: React.FC = () => {
         onSave={setResponse}
       />
 
-      <InstructionsModal
-        isOpen={isInstructionsOpen}
-        onClose={() => setIsInstructionsOpen(false)}
-      />
+      <InstructionsModal isOpen={isInstructionsOpen} onClose={() => setIsInstructionsOpen(false)} />
     </div>
   )
 }

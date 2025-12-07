@@ -12,7 +12,7 @@ export const Login = () => {
   const { login } = useAuth()
   const [credentials, setCredentials] = useState({
     username: '',
-    password: ''
+    password: '',
   })
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -40,18 +40,14 @@ export const Login = () => {
           <p className={styles.subtitle}>Sign in to your account</p>
         </div>
 
-        {error && (
-          <div className={styles.error}>
-            {error}
-          </div>
-        )}
+        {error && <div className={styles.error}>{error}</div>}
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <Input
             label="Username"
             type="text"
             value={credentials.username}
-            onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+            onChange={e => setCredentials({ ...credentials, username: e.target.value })}
             placeholder="Enter your username"
             required
             fullWidth
@@ -62,7 +58,7 @@ export const Login = () => {
             label="Password"
             type="password"
             value={credentials.password}
-            onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+            onChange={e => setCredentials({ ...credentials, password: e.target.value })}
             placeholder="Enter your password"
             required
             fullWidth

@@ -35,11 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
   )
 
   return (
-    <button
-      className={buttonClass}
-      disabled={disabled || isLoading}
-      {...props}
-    >
+    <button className={buttonClass} disabled={disabled || isLoading} {...props}>
       {isLoading && <span className={styles.spinner} />}
       {leftIcon && !isLoading && <span className={styles.leftIcon}>{leftIcon}</span>}
       {children}

@@ -11,14 +11,14 @@ export const Dashboard = () => {
     { label: 'API Requests', value: '1,234', icon: <FiActivity />, color: '#2eb67d' },
     { label: 'Presets', value: '45', icon: <FiDatabase />, color: '#6366f1' },
     { label: 'Endpoints Discovered', value: '12', icon: <FiGlobe />, color: '#f59e0b' },
-    { label: 'Exports', value: '78', icon: <FiBarChart />, color: '#ef4444' }
+    { label: 'Exports', value: '78', icon: <FiBarChart />, color: '#ef4444' },
   ]
 
   const recentActivity = [
     { action: 'Created new preset', time: '2 hours ago', user: user?.username },
     { action: 'Exported GeoJSON', time: 'Yesterday', user: user?.username },
     { action: 'Discovered new API', time: '2 days ago', user: user?.username },
-    { action: 'Updated parser settings', time: '3 days ago', user: user?.username }
+    { action: 'Updated parser settings', time: '3 days ago', user: user?.username },
   ]
 
   return (
@@ -32,7 +32,7 @@ export const Dashboard = () => {
         {stats.map((stat, index) => (
           <Card key={index} className={styles.statCard}>
             <div className={styles.statHeader}>
-              <div 
+              <div
                 className={styles.statIcon}
                 style={{ backgroundColor: `${stat.color}20`, color: stat.color }}
               >

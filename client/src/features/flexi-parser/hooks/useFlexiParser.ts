@@ -11,11 +11,11 @@ interface UseFlexiParserReturn {
   isJsonValid: boolean
   presets: Preset[]
   discoveredEndpoints: any[]
-  
+
   setApiUrl: (url: string) => void
   setDataPath: (path: string) => void
   setResponse: (response: string) => void
-  
+
   sendRequest: (url: string, path: string) => Promise<void>
   validateJson: () => boolean
   formatJson: () => void
@@ -34,26 +34,29 @@ export const useFlexiParser = (): UseFlexiParserReturn => {
   const [presets, setPresets] = useState<Preset[]>([])
   const [discoveredEndpoints, setDiscoveredEndpoints] = useState<any[]>([])
 
-  const sendRequest = useCallback(async (url: string, path: string) => {
-    if (!url.trim() && !response.trim()) {
-      alert('Please enter API URL or paste JSON')
-      return
-    }
-
-    if (url.trim()) {
-      try {
-        setIsLoading(true)
-        const { data } = await proxyApi.request(url)
-        setResponse(JSON.stringify(data, null, 2))
-        setIsJsonValid(true)
-      } catch (error: any) {
-        alert(`Error: ${error.message}`)
-        setIsJsonValid(false)
-      } finally {
-        setIsLoading(false)
+  const sendRequest = useCallback(
+    async (url: string, path: string) => {
+      if (!url.trim() && !response.trim()) {
+        alert('Please enter API URL or paste JSON')
+        return
       }
-    }
-  }, [response])
+
+      if (url.trim()) {
+        try {
+          setIsLoading(true)
+          const { data } = await proxyApi.request(url)
+          setResponse(JSON.stringify(data, null, 2))
+          setIsJsonValid(true)
+        } catch (error: any) {
+          alert(`Error: ${error.message}`)
+          setIsJsonValid(false)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+    },
+    [response]
+  )
 
   const validateJson = useCallback(() => {
     if (!response.trim()) {
@@ -91,15 +94,18 @@ export const useFlexiParser = (): UseFlexiParserReturn => {
     }
   }, [response, dataPath])
 
-  const saveToGeoJSON = useCallback((type: 'Point' | 'Line') => {
-    try {
-      const parsed = JSON.parse(response)
-      const data = extractData(parsed, dataPath)
-      exportToGeoJSON(data, type)
-    } catch (error: any) {
-      alert(`Error: ${error.message}`)
-    }
-  }, [response, dataPath])
+  const saveToGeoJSON = useCallback(
+    (type: 'Point' | 'Line') => {
+      try {
+        const parsed = JSON.parse(response)
+        const data = extractData(parsed, dataPath)
+        exportToGeoJSON(data, type)
+      } catch (error: any) {
+        alert(`Error: ${error.message}`)
+      }
+    },
+    [response, dataPath]
+  )
 
   const loadPresets = useCallback(async () => {
     try {
@@ -121,10 +127,10 @@ export const useFlexiParser = (): UseFlexiParserReturn => {
 
   const extractData = (data: any, path: string) => {
     if (!path) return data
-    
+
     const keys = path.split('.')
     let result = data
-    
+
     for (const key of keys) {
       if (result[key] !== undefined) {
         result = result[key]
@@ -132,7 +138,7 @@ export const useFlexiParser = (): UseFlexiParserReturn => {
         throw new Error(`Path "${path}" not found`)
       }
     }
-    
+
     return result
   }
 
@@ -144,17 +150,17 @@ export const useFlexiParser = (): UseFlexiParserReturn => {
     isJsonValid,
     presets,
     discoveredEndpoints,
-    
+
     setApiUrl,
     setDataPath,
     setResponse,
-    
+
     sendRequest,
     validateJson,
     formatJson,
     saveToExcel,
     saveToGeoJSON,
     loadPresets,
-    discoverApi
+    discoverApi,
   }
 }

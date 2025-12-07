@@ -21,17 +21,19 @@ export const ResponseViewer: React.FC<ResponseViewerProps> = ({
   onValidate,
   onClear,
   onSaveExcel,
-  onSaveGeoJSON
+  onSaveGeoJSON,
 }) => {
   const characterCount = response.length
   const lineCount = response.split('\n').length
-  
+
   return (
     <Card className={styles.container}>
       <div className={styles.header}>
         <h3 className={styles.title}>API Response</h3>
-        
-        <div className={`${styles.jsonStatus} ${isJsonValid ? styles.jsonValid : styles.jsonInvalid}`}>
+
+        <div
+          className={`${styles.jsonStatus} ${isJsonValid ? styles.jsonValid : styles.jsonInvalid}`}
+        >
           {isJsonValid ? (
             <>
               <FiCheck />
@@ -45,7 +47,7 @@ export const ResponseViewer: React.FC<ResponseViewerProps> = ({
           )}
         </div>
       </div>
-      
+
       {response ? (
         <>
           <textarea
@@ -55,7 +57,7 @@ export const ResponseViewer: React.FC<ResponseViewerProps> = ({
             placeholder="Response will appear here..."
             rows={15}
           />
-          
+
           <div className={styles.dataInfo}>
             <div className={styles.infoItem}>
               <span className={styles.infoIcon}>📝</span>
@@ -75,34 +77,21 @@ export const ResponseViewer: React.FC<ResponseViewerProps> = ({
           </div>
         </div>
       )}
-      
+
       <div className={styles.controls}>
-        <Button
-          variant="secondary"
-          onClick={onFormat}
-          disabled={!response}
-        >
+        <Button variant="secondary" onClick={onFormat} disabled={!response}>
           Format JSON
         </Button>
-        
-        <Button
-          variant="secondary"
-          onClick={onValidate}
-          disabled={!response}
-        >
+
+        <Button variant="secondary" onClick={onValidate} disabled={!response}>
           Validate JSON
         </Button>
-        
-        <Button
-          variant="secondary"
-          onClick={onClear}
-          disabled={!response}
-          leftIcon={<FiTrash2 />}
-        >
+
+        <Button variant="secondary" onClick={onClear} disabled={!response} leftIcon={<FiTrash2 />}>
           Clear
         </Button>
       </div>
-      
+
       <div className={styles.exportControls}>
         <div className={styles.exportSection}>
           <h4 className={styles.exportTitle}>Export Options</h4>
@@ -115,7 +104,7 @@ export const ResponseViewer: React.FC<ResponseViewerProps> = ({
             >
               Save to Excel
             </Button>
-            
+
             <Button
               variant="secondary"
               onClick={() => onSaveGeoJSON('Point')}
@@ -124,7 +113,7 @@ export const ResponseViewer: React.FC<ResponseViewerProps> = ({
             >
               Export GeoJSON (Points)
             </Button>
-            
+
             <Button
               variant="secondary"
               onClick={() => onSaveGeoJSON('Line')}

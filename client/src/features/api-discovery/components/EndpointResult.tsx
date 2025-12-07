@@ -36,7 +36,7 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
   const testEndpoint = async () => {
     setIsTesting(true)
     setTestResult(null)
-    
+
     try {
       const { data } = await discoveryApi.test(endpoint.url)
       setTestResult(data)
@@ -47,7 +47,7 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
         contentType: '',
         size: 0,
         structure: 'error',
-        error: error.response?.data?.error || 'Test failed'
+        error: error.response?.data?.error || 'Test failed',
       })
     } finally {
       setIsTesting(false)
@@ -85,13 +85,11 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
       <Card className={styles.endpointInfo}>
         <div className={styles.endpointHeader}>
           <div className={styles.endpointType}>
-            <span className={styles.typeIcon}>
-              {getStructureIcon(endpoint.type)}
-            </span>
+            <span className={styles.typeIcon}>{getStructureIcon(endpoint.type)}</span>
             <span className={styles.typeText}>{endpoint.type}</span>
           </div>
-          
-          <div 
+
+          <div
             className={styles.scoreBadge}
             style={{ backgroundColor: getScoreColor(endpoint.score) }}
           >
@@ -111,7 +109,7 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
               {copied ? 'Copied!' : 'Copy'}
             </Button>
           </div>
-          
+
           <div className={styles.urlDisplay}>
             <code className={styles.urlText}>{endpoint.url}</code>
             <a
@@ -136,10 +134,8 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
       {/* Результаты теста */}
       <Card className={styles.testSection}>
         <div className={styles.testHeader}>
-          <h3 className={styles.testTitle}>
-            {isTesting ? 'Testing Endpoint...' : 'Test Results'}
-          </h3>
-          
+          <h3 className={styles.testTitle}>{isTesting ? 'Testing Endpoint...' : 'Test Results'}</h3>
+
           <Button
             variant="outline"
             size="sm"
@@ -159,10 +155,10 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
         ) : testResult ? (
           <div className={styles.testResults}>
             {/* Статус теста */}
-            <div className={`${styles.statusCard} ${testResult.success ? styles.success : styles.error}`}>
-              <div className={styles.statusIcon}>
-                {testResult.success ? <FiCheck /> : <FiX />}
-              </div>
+            <div
+              className={`${styles.statusCard} ${testResult.success ? styles.success : styles.error}`}
+            >
+              <div className={styles.statusIcon}>{testResult.success ? <FiCheck /> : <FiX />}</div>
               <div className={styles.statusInfo}>
                 <h4 className={styles.statusTitle}>
                   {testResult.success ? 'Test Successful' : 'Test Failed'}
@@ -178,16 +174,16 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
               <div className={styles.detailGrid}>
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Status Code</span>
-                  <span className={`${styles.detailValue} ${testResult.status >= 400 ? styles.errorText : styles.successText}`}>
+                  <span
+                    className={`${styles.detailValue} ${testResult.status >= 400 ? styles.errorText : styles.successText}`}
+                  >
                     {testResult.status}
                   </span>
                 </div>
 
                 <div className={styles.detailItem}>
                   <span className={styles.detailLabel}>Content Type</span>
-                  <span className={styles.detailValue}>
-                    {testResult.contentType || 'Unknown'}
-                  </span>
+                  <span className={styles.detailValue}>{testResult.contentType || 'Unknown'}</span>
                 </div>
 
                 <div className={styles.detailItem}>
@@ -218,11 +214,11 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
                       theme="solarized"
                       collapsed={2}
                       displayDataTypes={false}
-                      style={{ 
+                      style={{
                         padding: '1rem',
                         borderRadius: '0.5rem',
                         backgroundColor: 'var(--background-color)',
-                        fontSize: '0.85rem'
+                        fontSize: '0.85rem',
                       }}
                     />
                   </div>
@@ -248,9 +244,7 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
               {testResult.error && (
                 <div className={styles.errorSection}>
                   <h4 className={styles.errorTitle}>Error Details</h4>
-                  <pre className={styles.errorText}>
-                    {testResult.error}
-                  </pre>
+                  <pre className={styles.errorText}>{testResult.error}</pre>
                 </div>
               )}
             </div>
@@ -264,38 +258,35 @@ export const EndpointResult: React.FC<EndpointResultProps> = ({ endpoint, onClos
 
       {/* Действия */}
       <div className={styles.actions}>
-  <Button
-    variant="outline"
-    onClick={onClose}
-  >
-    Close
-  </Button>
-  
-  {onUse ? (
-    <Button
-      variant="primary"
-      onClick={() => {
-        onUse()
-        onClose()
-      }}
-      leftIcon={<FiDatabase />}
-    >
-      Use This Endpoint
-    </Button>
-  ) : (
-    <Button
-      variant="primary"
-      onClick={() => {
-        console.log('Using endpoint:', endpoint.url)
-        alert(`Endpoint ${endpoint.url} will be used in the parser`)
-        onClose()
-      }}
-      leftIcon={<FiDatabase />}
-    >
-      Use This Endpoint
-    </Button>
-  )}
-</div>
+        <Button variant="outline" onClick={onClose}>
+          Close
+        </Button>
+
+        {onUse ? (
+          <Button
+            variant="primary"
+            onClick={() => {
+              onUse()
+              onClose()
+            }}
+            leftIcon={<FiDatabase />}
+          >
+            Use This Endpoint
+          </Button>
+        ) : (
+          <Button
+            variant="primary"
+            onClick={() => {
+              console.log('Using endpoint:', endpoint.url)
+              alert(`Endpoint ${endpoint.url} will be used in the parser`)
+              onClose()
+            }}
+            leftIcon={<FiDatabase />}
+          >
+            Use This Endpoint
+          </Button>
+        )}
+      </div>
     </div>
   )
 }

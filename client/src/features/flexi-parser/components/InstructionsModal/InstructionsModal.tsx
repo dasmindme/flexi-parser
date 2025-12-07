@@ -2,17 +2,17 @@ import React from 'react'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { Button } from '@/shared/ui/Button/Button'
 import styles from './InstructionsModal.module.css'
-import { 
-  FiGlobe, 
-  FiCode, 
-  FiDownload, 
-  FiDatabase, 
-  FiSearch, 
+import {
+  FiGlobe,
+  FiCode,
+  FiDownload,
+  FiDatabase,
+  FiSearch,
   FiSettings,
   FiPlay,
   FiCopy,
   FiCheckSquare,
-  FiMap
+  FiMap,
 } from 'react-icons/fi'
 
 interface InstructionsModalProps {
@@ -20,10 +20,7 @@ interface InstructionsModalProps {
   onClose: () => void
 }
 
-export const InstructionsModal: React.FC<InstructionsModalProps> = ({
-  isOpen,
-  onClose
-}) => {
+export const InstructionsModal: React.FC<InstructionsModalProps> = ({ isOpen, onClose }) => {
   const sections = [
     {
       title: 'Getting Started',
@@ -32,8 +29,8 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         'Enter an API URL or use a preset',
         'Optionally specify a data path (e.g., data.items)',
         'Click "Send Request" or paste JSON directly',
-        'View and validate the response'
-      ]
+        'View and validate the response',
+      ],
     },
     {
       title: 'JSON Operations',
@@ -42,8 +39,8 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         'Format JSON for better readability',
         'Validate JSON structure',
         'Copy JSON to clipboard',
-        'Load example JSON for testing'
-      ]
+        'Load example JSON for testing',
+      ],
     },
     {
       title: 'Export Options',
@@ -52,8 +49,8 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         'Export to Excel (.xlsx)',
         'Export to GeoJSON (Points)',
         'Export to GeoJSON (Lines)',
-        'Automatic data flattening'
-      ]
+        'Automatic data flattening',
+      ],
     },
     {
       title: 'Preset Management',
@@ -62,8 +59,8 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         'Save frequently used API endpoints',
         'Organize presets by categories',
         'Quick access to saved requests',
-        'Edit or delete existing presets'
-      ]
+        'Edit or delete existing presets',
+      ],
     },
     {
       title: 'API Discovery',
@@ -72,8 +69,8 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         'Discover API endpoints on websites',
         'Test endpoints before using',
         'Score endpoints by reliability',
-        'One-click import to parser'
-      ]
+        'One-click import to parser',
+      ],
     },
     {
       title: 'Advanced Features',
@@ -82,9 +79,9 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
         'JSON path extraction',
         'Automatic coordinate detection',
         'Data transformation',
-        'Batch processing'
-      ]
-    }
+        'Batch processing',
+      ],
+    },
   ]
 
   const keyboardShortcuts = [
@@ -92,23 +89,18 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
     { key: 'Ctrl + F', description: 'Format JSON' },
     { key: 'Ctrl + K', description: 'Clear response' },
     { key: 'Ctrl + Enter', description: 'Send request' },
-    { key: 'Ctrl + Shift + J', description: 'JSON editor' }
+    { key: 'Ctrl + Shift + J', description: 'JSON editor' },
   ]
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="FlexiParser Instructions"
-      size="xl"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title="FlexiParser Instructions" size="xl">
       <div className={styles.container}>
         {/* Introduction */}
         <div className={styles.intro}>
           <h3 className={styles.introTitle}>Welcome to FlexiParser!</h3>
           <p className={styles.introText}>
-            FlexiParser is a powerful API testing and data extraction tool that helps you 
-            work with JSON APIs, discover endpoints, and export data in multiple formats.
+            FlexiParser is a powerful API testing and data extraction tool that helps you work with
+            JSON APIs, discover endpoints, and export data in multiple formats.
           </p>
         </div>
 
@@ -117,9 +109,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
           {sections.map((section, index) => (
             <div key={index} className={styles.section}>
               <div className={styles.sectionHeader}>
-                <div className={styles.sectionIcon}>
-                  {section.icon}
-                </div>
+                <div className={styles.sectionIcon}>{section.icon}</div>
                 <h4 className={styles.sectionTitle}>{section.title}</h4>
               </div>
               <ul className={styles.stepsList}>
@@ -158,7 +148,7 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
             <div className={styles.example}>
               <h5>Basic API Response</h5>
               <pre className={styles.code}>
-{`{
+                {`{
   "status": "success",
   "data": {
     "items": [
@@ -172,12 +162,13 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
       }
     ]
   }
-}`}</pre>
+}`}
+              </pre>
             </div>
             <div className={styles.example}>
               <h5>GeoJSON Format</h5>
               <pre className={styles.code}>
-{`{
+                {`{
   "type": "FeatureCollection",
   "features": [
     {
@@ -191,7 +182,8 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
       }
     }
   ]
-}`}</pre>
+}`}
+              </pre>
             </div>
           </div>
         </div>
@@ -203,26 +195,26 @@ export const InstructionsModal: React.FC<InstructionsModalProps> = ({
           </h4>
           <div className={styles.tips}>
             <div className={styles.tip}>
-              <strong>Path Extraction:</strong> Use dot notation to access nested data (e.g., data.items.0.name)
+              <strong>Path Extraction:</strong> Use dot notation to access nested data (e.g.,
+              data.items.0.name)
             </div>
             <div className={styles.tip}>
-              <strong>Auto-detection:</strong> The parser automatically detects coordinates in various formats
+              <strong>Auto-detection:</strong> The parser automatically detects coordinates in
+              various formats
             </div>
             <div className={styles.tip}>
               <strong>Bulk Operations:</strong> Use presets for batch processing multiple APIs
             </div>
             <div className={styles.tip}>
-              <strong>Error Handling:</strong> Invalid JSON is highlighted with detailed error messages
+              <strong>Error Handling:</strong> Invalid JSON is highlighted with detailed error
+              messages
             </div>
           </div>
         </div>
 
         {/* Actions */}
         <div className={styles.actions}>
-          <Button
-            variant="outline"
-            onClick={onClose}
-          >
+          <Button variant="outline" onClick={onClose}>
             Close Instructions
           </Button>
           <Button

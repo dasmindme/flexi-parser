@@ -1,9 +1,14 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import styles from './Layout.module.css'
-import { 
-  FiCode, FiDatabase, FiGlobe, FiHome, 
-  FiSettings, FiHelpCircle, FiFileText 
+import {
+  FiCode,
+  FiDatabase,
+  FiGlobe,
+  FiHome,
+  FiSettings,
+  FiHelpCircle,
+  FiFileText,
 } from 'react-icons/fi'
 
 export const Sidebar = () => {
@@ -13,13 +18,13 @@ export const Sidebar = () => {
     { path: '/parser', label: 'API Parser', icon: <FiCode /> },
     { path: '/presets', label: 'Presets', icon: <FiDatabase /> },
     { path: '/discovery', label: 'API Discovery', icon: <FiGlobe /> },
-    { path: '/dashboard', label: 'Dashboard', icon: <FiHome /> }
+    { path: '/dashboard', label: 'Dashboard', icon: <FiHome /> },
   ]
 
   const secondaryItems = [
     { path: '/settings', label: 'Settings', icon: <FiSettings /> },
     { path: '/help', label: 'Help', icon: <FiHelpCircle /> },
-    { path: '/docs', label: 'Documentation', icon: <FiFileText /> }
+    { path: '/docs', label: 'Documentation', icon: <FiFileText /> },
   ]
 
   return (
@@ -45,11 +50,7 @@ export const Sidebar = () => {
           <div className={styles.sidebarSection}>
             <h3 className={styles.sectionTitle}>Additional</h3>
             {secondaryItems.map(item => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={styles.sidebarLink}
-              >
+              <Link key={item.path} to={item.path} className={styles.sidebarLink}>
                 {item.icon}
                 <span>{item.label}</span>
               </Link>

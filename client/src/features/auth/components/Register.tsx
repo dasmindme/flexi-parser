@@ -14,7 +14,7 @@ export const Register = () => {
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   })
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -34,7 +34,7 @@ export const Register = () => {
       await register({
         username: formData.username,
         email: formData.email || undefined,
-        password: formData.password
+        password: formData.password,
       })
       navigate('/parser')
     } catch (err: any) {
@@ -52,18 +52,14 @@ export const Register = () => {
           <p className={styles.subtitle}>Join FlexiParser community</p>
         </div>
 
-        {error && (
-          <div className={styles.error}>
-            {error}
-          </div>
-        )}
+        {error && <div className={styles.error}>{error}</div>}
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <Input
             label="Username"
             type="text"
             value={formData.username}
-            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+            onChange={e => setFormData({ ...formData, username: e.target.value })}
             placeholder="Choose a username"
             required
             fullWidth
@@ -76,7 +72,7 @@ export const Register = () => {
             label="Email (optional)"
             type="email"
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onChange={e => setFormData({ ...formData, email: e.target.value })}
             placeholder="Enter your email"
             fullWidth
             leftIcon={<FiMail />}
@@ -86,7 +82,7 @@ export const Register = () => {
             label="Password"
             type="password"
             value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            onChange={e => setFormData({ ...formData, password: e.target.value })}
             placeholder="Create a password"
             required
             fullWidth
@@ -98,7 +94,7 @@ export const Register = () => {
             label="Confirm Password"
             type="password"
             value={formData.confirmPassword}
-            onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+            onChange={e => setFormData({ ...formData, confirmPassword: e.target.value })}
             placeholder="Confirm your password"
             required
             fullWidth

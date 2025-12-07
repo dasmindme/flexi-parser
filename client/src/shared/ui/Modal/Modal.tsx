@@ -22,7 +22,7 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   size = 'md',
   showCloseButton = true,
-  className
+  className,
 }) => {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -48,24 +48,19 @@ export const Modal: React.FC<ModalProps> = ({
     <div className={styles.overlay} onClick={onClose}>
       <div
         className={clsx(styles.modal, styles[size], className)}
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         {(title || showCloseButton) && (
           <div className={styles.header}>
             {title && <h2 className={styles.title}>{title}</h2>}
             {showCloseButton && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={onClose}
-                className={styles.closeButton}
-              >
+              <Button variant="outline" size="sm" onClick={onClose} className={styles.closeButton}>
                 <FiX />
               </Button>
             )}
           </div>
         )}
-        
+
         <div className={styles.content}>{children}</div>
       </div>
     </div>,

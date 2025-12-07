@@ -16,12 +16,7 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={clsx(
-        styles.card,
-        styles[variant],
-        styles[`padding-${padding}`],
-        className
-      )}
+      className={clsx(styles.card, styles[variant], styles[`padding-${padding}`], className)}
       {...props}
     >
       {children}

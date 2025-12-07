@@ -15,8 +15,8 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onSelect }) => {
     <div>
       <h4>API Пресеты</h4>
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        {presets.map((preset) => (
-          <button 
+        {presets.map(preset => (
+          <button
             key={preset.url}
             onClick={() => onSelect(preset.url)}
             style={{
@@ -24,7 +24,7 @@ export const PresetSelector: React.FC<PresetSelectorProps> = ({ onSelect }) => {
               background: '#f0f0f0',
               border: '1px solid #ddd',
               borderRadius: '4px',
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
           >
             {preset.name}

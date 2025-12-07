@@ -15,20 +15,23 @@ export const AppRoutes = () => {
       {/* Публичные маршруты */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      
+
       {/* Защищенные маршруты с Layout */}
-      <Route path="/" element={
-        <ProtectedRoute>
-          <Layout />
-        </ProtectedRoute>
-      }>
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<Navigate to="/parser" replace />} />
         <Route path="parser" element={<FlexiParser />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="presets" element={<PresetManager />} />
         <Route path="discovery" element={<ApiDiscovery />} />
       </Route>
-      
+
       {/* 404 */}
       <Route path="*" element={<Navigate to="/parser" replace />} />
     </Routes>

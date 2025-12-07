@@ -10,7 +10,7 @@ interface LoadingSpinnerProps {
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'md',
   color,
-  className
+  className,
 }) => {
   const sizeClass = styles[size]
   const spinnerStyle = color ? { borderTopColor: color } : undefined

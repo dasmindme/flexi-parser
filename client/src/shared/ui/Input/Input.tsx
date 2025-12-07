@@ -11,55 +11,50 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   fullWidth?: boolean
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(({
-  label,
-  error,
-  helperText,
-  leftIcon,
-  rightIcon,
-  fullWidth = false,
-  className,
-  id,
-  ...props
-}, ref) => {
-  const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    { label, error, helperText, leftIcon, rightIcon, fullWidth = false, className, id, ...props },
+    ref
+  ) => {
+    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`
 
-  return (
-    <div className={clsx(styles.container, { [styles.fullWidth]: fullWidth })}>
-      {label && (
-        <label htmlFor={inputId} className={styles.label}>
-          {label}
-        </label>
-      )}
-      
-      <div className={styles.inputWrapper}>
-        {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
-        
-        <input
-          id={inputId}
-          ref={ref}
-          className={clsx(
-            styles.input,
-            {
-              [styles.hasLeftIcon]: !!leftIcon,
-              [styles.hasRightIcon]: !!rightIcon,
-              [styles.error]: !!error,
-            },
-            className
-          )}
-          {...props}
-        />
-        
-        {rightIcon && <span className={styles.rightIcon}>{rightIcon}</span>}
+    return (
+      <div className={clsx(styles.container, { [styles.fullWidth]: fullWidth })}>
+        {label && (
+          <label htmlFor={inputId} className={styles.label}>
+            {label}
+          </label>
+        )}
+
+        <div className={styles.inputWrapper}>
+          {leftIcon && <span className={styles.leftIcon}>{leftIcon}</span>}
+
+          <input
+            id={inputId}
+            ref={ref}
+            className={clsx(
+              styles.input,
+              {
+                [styles.hasLeftIcon]: !!leftIcon,
+                [styles.hasRightIcon]: !!rightIcon,
+                [styles.error]: !!error,
+              },
+              className
+            )}
+            {...props}
+          />
+
+          {rightIcon && <span className={styles.rightIcon}>{rightIcon}</span>}
+        </div>
+
+        {(error || helperText) && (
+          <p className={clsx(styles.helperText, { [styles.error]: !!error })}>
+            {error || helperText}
+          </p>
+        )}
       </div>
-      
-      {(error || helperText) && (
-        <p className={clsx(styles.helperText, { [styles.error]: !!error })}>
-          {error || helperText}
-        </p>
-      )}
-    </div>
-  )
-})
+    )
+  }
+)
 
 Input.displayName = 'Input'

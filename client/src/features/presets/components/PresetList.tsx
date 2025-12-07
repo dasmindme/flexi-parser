@@ -13,12 +13,7 @@ interface PresetListProps {
   onDelete: (id: string) => void
 }
 
-export const PresetList: React.FC<PresetListProps> = ({
-  presets,
-  viewMode,
-  onEdit,
-  onDelete
-}) => {
+export const PresetList: React.FC<PresetListProps> = ({ presets, viewMode, onEdit, onDelete }) => {
   const handleCopyUrl = (url: string) => {
     navigator.clipboard.writeText(url)
   }
@@ -40,36 +35,28 @@ export const PresetList: React.FC<PresetListProps> = ({
           <Card key={preset._id} className={styles.gridCard}>
             <div className={styles.cardHeader}>
               <h4 className={styles.cardTitle}>{preset.name}</h4>
-              {preset.category && (
-                <span className={styles.categoryBadge}>
-                  {preset.category}
-                </span>
-              )}
+              {preset.category && <span className={styles.categoryBadge}>{preset.category}</span>}
             </div>
-            
-            {preset.description && (
-              <p className={styles.cardDescription}>
-                {preset.description}
-              </p>
-            )}
-            
+
+            {preset.description && <p className={styles.cardDescription}>{preset.description}</p>}
+
             <div className={styles.cardUrl}>
-              <a 
-                href={preset.url} 
-                target="_blank" 
+              <a
+                href={preset.url}
+                target="_blank"
                 rel="noopener noreferrer"
                 className={styles.urlLink}
               >
                 {preset.url}
               </a>
             </div>
-            
+
             <div className={styles.cardMeta}>
               <span className={styles.metaItem}>
                 Created: {format(new Date(preset.createdAt), 'MMM d, yyyy')}
               </span>
             </div>
-            
+
             <div className={styles.cardActions}>
               <Button
                 variant="outline"
@@ -79,7 +66,7 @@ export const PresetList: React.FC<PresetListProps> = ({
               >
                 Copy URL
               </Button>
-              
+
               <Button
                 variant="outline"
                 size="sm"
@@ -88,7 +75,7 @@ export const PresetList: React.FC<PresetListProps> = ({
               >
                 Edit
               </Button>
-              
+
               <Button
                 variant="danger"
                 size="sm"
@@ -112,30 +99,22 @@ export const PresetList: React.FC<PresetListProps> = ({
             <div className={styles.listContent}>
               <div className={styles.listHeader}>
                 <h4 className={styles.listTitle}>{preset.name}</h4>
-                {preset.category && (
-                  <span className={styles.listCategory}>
-                    {preset.category}
-                  </span>
-                )}
+                {preset.category && <span className={styles.listCategory}>{preset.category}</span>}
               </div>
-              
-              {preset.description && (
-                <p className={styles.listDescription}>
-                  {preset.description}
-                </p>
-              )}
-              
+
+              {preset.description && <p className={styles.listDescription}>{preset.description}</p>}
+
               <div className={styles.listUrl}>
-                <a 
-                  href={preset.url} 
-                  target="_blank" 
+                <a
+                  href={preset.url}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className={styles.urlLink}
                 >
                   {preset.url}
                 </a>
               </div>
-              
+
               <div className={styles.listMeta}>
                 <span className={styles.metaItem}>
                   Created: {format(new Date(preset.createdAt), 'MMM d, yyyy')}
@@ -145,7 +124,7 @@ export const PresetList: React.FC<PresetListProps> = ({
                 </span>
               </div>
             </div>
-            
+
             <div className={styles.listActions}>
               <Button
                 variant="outline"
@@ -154,7 +133,7 @@ export const PresetList: React.FC<PresetListProps> = ({
                 leftIcon={<FiExternalLink />}
                 title="Open URL"
               />
-              
+
               <Button
                 variant="outline"
                 size="sm"
@@ -162,7 +141,7 @@ export const PresetList: React.FC<PresetListProps> = ({
                 leftIcon={<FiEdit />}
                 title="Edit"
               />
-              
+
               <Button
                 variant="danger"
                 size="sm"

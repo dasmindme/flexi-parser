@@ -47,6 +47,6 @@ export interface JsonEditorProps {
   onClose: () => void
 }
 
-export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'outline';
+export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'outline'
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonSize = 'sm' | 'md' | 'lg'

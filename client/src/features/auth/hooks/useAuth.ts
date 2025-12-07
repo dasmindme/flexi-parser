@@ -28,7 +28,7 @@ export const useAuth = () => {
   const navigate = useNavigate()
   const [state, setState] = useState<AuthState>({
     user: null,
-    isLoading: true
+    isLoading: true,
   })
 
   const checkAuth = useCallback(async () => {
@@ -52,13 +52,16 @@ export const useAuth = () => {
     return data
   }, [])
 
-  const register = useCallback(async (data: RegisterData) => {
-    const response = await authApi.register(data)
-    if (response.data.success) {
-      await checkAuth()
-    }
-    return response.data
-  }, [checkAuth])
+  const register = useCallback(
+    async (data: RegisterData) => {
+      const response = await authApi.register(data)
+      if (response.data.success) {
+        await checkAuth()
+      }
+      return response.data
+    },
+    [checkAuth]
+  )
 
   const logout = useCallback(async () => {
     try {
@@ -80,6 +83,6 @@ export const useAuth = () => {
     login,
     register,
     logout,
-    checkAuth
+    checkAuth,
   }
 }
